@@ -23,7 +23,18 @@
     <link href="{{ asset('assets/plugins/colorpicker/asColorPicker.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
+    {{-- Datatables Form --}}
+    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
+
+
+    <link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}"
+        rel="stylesheet">
     <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css') }}"
         rel="stylesheet" />
@@ -305,6 +316,32 @@
     <script src="{{ asset('assets/plugins/colorpicker/jquery-asGradient.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/plugins/colorpicker/jquery-asColorPicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}" type="text/javascript"></script>
+
+    {{-- data tables --}}
+    <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <!-- Buttons examples -->
+    <script src="{{asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/vfs_fonts.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+    <!-- Responsive examples -->
+    <script src="{{asset('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
+
+    <!-- Datatable init js -->
+    <script src="{{asset('assets/pages/datatables.init.js')}}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#datatable2').DataTable();
+        });
+    </script>
 
     <script src="{{ asset('assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
