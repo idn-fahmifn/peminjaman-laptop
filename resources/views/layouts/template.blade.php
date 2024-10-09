@@ -31,7 +31,8 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
-
+    {{-- Modals --}}
+    <link href="{{asset('assets/plugins/animate/animate.css')}}" rel="stylesheet" type="text/css">
 
     <link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}"
         rel="stylesheet">
@@ -335,6 +336,9 @@
 
     <!-- Datatable init js -->
     <script src="{{asset('assets/pages/datatables.init.js')}}"></script>
+
+    {{-- modals --}}
+    <script src="{{asset('assets/pages/modal-animation.init.js')}}"></script>
 
 
     <script>

@@ -12,7 +12,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-        return view('grades.index');
+        $data = Grade::all();
+        return view('grades.index', compact('data'));
     }
 
     /**
@@ -28,15 +29,25 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $request->validate([
+            'nama' => 'min:3|string|required',
+            'jurusan' => 'min:3|string|required',
+            'wali_kelas' => 'min:3|string|required',
+        ]);
+
+        Grade::create($input);
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Grade $grade)
+    public function show($id)
     {
-        //
+        $data = Grade::find($id);
+        return view('grades.detail', compact('data'));
     }
 
     /**

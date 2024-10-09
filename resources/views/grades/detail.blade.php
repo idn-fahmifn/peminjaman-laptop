@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Data nama Kelas</h4>
+                <h4 class="header-title">Ubah data</h4>
                 <p class="text-muted">Jika ingin mengubah, silakan hubungi admin</p>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalform2">
                     Tambah Data
@@ -16,25 +16,19 @@
 
                 {{-- table --}}
                 <div class="table-responsive mt-4">
-                    <table class="table table-striped" id="datatable-buttons">
-                        <thead>
-                            <th>Nama Kelas</th>
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Nama kelas</th>
+                            <td>{{$data->nama}}</td>
+                        </tr>
+                        <tr>
                             <th>Jurusan</th>
-                            <th>Nama Wali kelas</th>
-                            <th>Pilihan</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($data as $item)
-                                <tr>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->jurusan }}</td>
-                                    <td>{{ $item->wali_kelas }}</td>
-                                    <td>
-                                        tombol
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                            <td>{{$data->jurusan}}</td>
+                        </tr>
+                        <tr>
+                            <th>Nama Wali Kelas</th>
+                            <td>{{$data->wali_kelas}}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -49,22 +43,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('grades.store') }}" method="post">
+                <form action="{{ route('grades.update', $data->id) }}" method="post">
                     @csrf
+                    {{method_field('PUT')}}
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Nama Kelas</label>
-                                    <input type="text" class="form-control" required name="nama"
-                                        placeholder="contoh : X RPL A">
+                                    <input type="text" class="form-control" required name="nama" value="{{$data->nama}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">Jurusan</label>
                                     <select name="jurusan" class="form-control">
-                                        <option value="">Pilih Jurusan</option>
+                                        <option value="{{$data->jurusan}}">{{$data->jurusan}}</option>
                                         <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
                                         <option value="Teknik Komputer Jaringan">Teknik Komputer Jaringan</option>
                                         <option value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
@@ -77,8 +71,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="field-3" class="control-label">Nama Wali Kelas</label>
-                                    <input type="text" class="form-control" required name="wali_kelas"
-                                        placeholder="Fahmi Nuradi S.Kom">
+                                    <input type="text" class="form-control" required name="wali_kelas" value="{{$data->wali_kelas}}">
                                 </div>
                             </div>
                         </div>
