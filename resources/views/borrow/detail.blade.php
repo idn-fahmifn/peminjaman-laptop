@@ -28,7 +28,7 @@ Kelas
                 <strong>Sukeses!</strong> {{ session('success') }}.
             </div>
             @endif
-            
+
             <h4 class="header-title">Peminjaman Laptop</h4>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pinjam">
                 Pinjam Laptop
@@ -36,7 +36,42 @@ Kelas
 
             {{-- table --}}
             <div class="table-responsive mt-4">
-                
+                <table class="table table-striped" id="datatable-buttons">
+                    <thead>
+                        <th>Nama Siswa</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Tanggal Kembali</th>
+                        <th>Status</th>
+                        <th>Pilihan</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($pinjam as $item)
+                        <tr>
+                            <td>{{ $item->student->nama_siswa }}</td>
+                            <td>{{ $item->tanggal_pinjam }}</td>
+                            <td>{{ $item->tanggal_kembali }}</td>
+                            <td>
+                                @if($item->status == 'dipinjam')
+                                <span class="badge badge-warning">dipinjam / belum dikembalikan</span>
+                                @else
+                                <span class="badge badge-success">sudah dikembalikan</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($item->status == 'dikembalikan')
+                                dikembalikan pada <span class="text-success">{{$item->updated_at}}</span>
+                                @else
+                                <form action="{{route('borrow.update', $item->id)}}" method="post">
+                                    @csrf
+                                    {{method_field('PUT')}}
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('Laptop sudah dikembalikan?')">Kembalikan Laptop</button>
+                                </form>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -88,7 +123,7 @@ Kelas
                             <input type="text" name="alasan" class="form-control">
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>

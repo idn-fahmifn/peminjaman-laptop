@@ -41,7 +41,8 @@ class BorrowController extends Controller
     public function show($id)
     {
         $data = Student::find($id);
-        return view('borrow.detail', compact('data'));
+        $pinjam = Borrow::where('id_student', $id)->get()->all();
+        return view('borrow.detail', compact('data', 'pinjam'));
     }
 
     /**
@@ -55,9 +56,14 @@ class BorrowController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Borrow $borrow)
+    public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $data = Borrow::find($id);
+        $input['status'] = 'dikembalikan';
+        $data->update($input);
+        return back()->with('success', 'laptop sudah dikembalikan');
+        
     }
 
     /**
