@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('page-title')
-Kelas
+Siswa
 @endsection
 
 @section('content')
@@ -29,8 +29,8 @@ Kelas
                 <strong>Sukeses!</strong> {{ session('success') }}.
             </div>
             @endif
-            
-            <h4 class="header-title">Ubah data</h4>
+
+            <h4 class="header-title">Data Siswa</h4>
             <p class="text-muted">Jika ingin mengubah, silakan hubungi admin</p>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalform2">
                 Tambah Data
@@ -38,19 +38,30 @@ Kelas
 
             {{-- table --}}
             <div class="table-responsive mt-4">
-                <table class="table table-borderless">
-                    <tr>
-                        <th>Nama kelas</th>
-                        <td>{{$data->nama}}</td>
-                    </tr>
-                    <tr>
-                        <th>Jurusan</th>
-                        <td>{{$data->jurusan}}</td>
-                    </tr>
-                    <tr>
-                        <th>Nama Wali Kelas</th>
-                        <td>{{$data->wali_kelas}}</td>
-                    </tr>
+                <table class="table table-striped" id="datatable-buttons">
+                    <thead>
+                        <th>Nama Siswa</th>
+                        <th>NIS</th>
+                        <th>Kelas</th>
+                        <th>Pilihan</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $item)
+                        <tr>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jurusan }}</td>
+                            <td>{{ $item->wali_kelas }}</td>
+                            <td>
+                                <form action="{{route('grades.destroy', $item->id)}}" method="post">
+                                    @csrf
+                                    {{method_field('DELETE')}}
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus?')">Hapus</button>
+                                    <a href="{{route('grades.show', $item->id)}}" class="btn btn-info">Detail</a>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -65,26 +76,33 @@ Kelas
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('grades.update', $data->id) }}" method="post">
+            <form action="{{ route('students.store') }}" method="post">
                 @csrf
-                {{method_field('PUT')}}
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Nama Siswa</label>
+                                <input type="text" class="form-control" required name="nama_siswa"
+                                    placeholder="contoh : X RPL A">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="field-1" class="control-label">Nama Kelas</label>
-                                <input type="text" class="form-control" required name="nama" value="{{$data->nama}}">
+                                <label for="field-3" class="control-label">Nomor Induk Siswa (NIS)</label>
+                                <input type="text" class="form-control" required name="nis"
+                                    placeholder="0017637473">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="field-2" class="control-label">Jurusan</label>
-                                <select name="jurusan" class="form-control">
-                                    <option value="{{$data->jurusan}}">{{$data->jurusan}}</option>
-                                    <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
-                                    <option value="Teknik Komputer Jaringan">Teknik Komputer Jaringan</option>
-                                    <option value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
-                                    <option value="Teknik Kendaraan Ringan">Teknik Kendaraan Ringan</option>
+                                <label for="field-2" class="control-label">Jenis Kelamin</label>
+                                <select name="jenis_kelamin" class="form-control">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="Laki Laki">Laki Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
                         </div>
@@ -92,8 +110,9 @@ Kelas
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="field-3" class="control-label">Nama Wali Kelas</label>
-                                <input type="text" class="form-control" required name="wali_kelas" value="{{$data->wali_kelas}}">
+                                <label for="field-1" class="control-label">Gambar Barang</label>
+                                <input type="file" id="input-file-now-custom-3" name="gambar"
+                                    class="dropify" required />
                             </div>
                         </div>
                     </div>
