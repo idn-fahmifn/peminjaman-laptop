@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Grade;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -19,7 +22,8 @@ class StudentController extends Controller
     public function index()
     {
         $data = Student::all();
-        return view('students.index', compact('data'));
+        $kelas = Grade::all();
+        return view('students.index', compact('data', 'kelas'));
     }
 
     /**
@@ -35,15 +39,30 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        // khusus untuk add file
+        if($request->hasFile('foto'))
+        {
+            $gambar = $request->file('foto');
+            $extension = $gambar->getClientOriginalExtension();
+            $path_destination = 'public/images/foto-siswa';
+            $name = 'Foto-Siswa'.Carbon::now()->format('Ymd_his').'.'.$extension;
+            $path = $request->file('foto')->storeAs($path_destination, $name);
+            $input['foto'] = $name;
+        }
+        Student::create($input);
+        return back()->with('success', 'Data siswa berhasil ditambahkan.');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show($id)
     {
-        //
+        $data = Student::find($id);
+        $kelas = Grade::all();
+        return view('students.detail', compact('data', 'kelas'));
     }
 
     /**
@@ -57,16 +76,33 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Student::find($id);
+        $input = $request->all();
+        if($request->hasFile('foto'))
+        {
+            $gambar = $request->file('foto');
+            $extension = $gambar->getClientOriginalExtension();
+            $path_destination = 'public/images/foto-siswa';
+            $name = 'Foto-Siswa'.Carbon::now()->format('Ymd_his').'.'.$extension;
+            $path = $request->file('foto')->storeAs($path_destination, $name);
+            $input['foto'] = $name;
+            Storage::delete('public/public/images/foto-siswa'.$data->foto);
+        }
+        $data->update($input);
+        return back()->with('success', 'Data berhasil diubah');
+
+        // dd($input);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        $data = Student::find($id);
+        $data->delete();
+        return back()->with('success', 'Data berhasil dihapus');
     }
 }

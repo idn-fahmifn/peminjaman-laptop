@@ -48,15 +48,15 @@ Siswa
                     <tbody>
                         @foreach ($data as $item)
                         <tr>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->jurusan }}</td>
-                            <td>{{ $item->wali_kelas }}</td>
+                            <td>{{ $item->nama_siswa }}</td>
+                            <td>{{ $item->nis }}</td>
+                            <td>{{ $item->grade->nama }}</td>
                             <td>
-                                <form action="{{route('grades.destroy', $item->id)}}" method="post">
+                                <form action="{{route('students.destroy', $item->id)}}" method="post">
                                     @csrf
                                     {{method_field('DELETE')}}
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus?')">Hapus</button>
-                                    <a href="{{route('grades.show', $item->id)}}" class="btn btn-info">Detail</a>
+                                    <a href="{{route('students.show', $item->id)}}" class="btn btn-info">Detail</a>
                                 </form>
                             </td>
                         </tr>
@@ -76,7 +76,7 @@ Siswa
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('students.store') }}" method="post">
+            <form action="{{ route('students.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -84,7 +84,18 @@ Siswa
                             <div class="form-group">
                                 <label for="field-1" class="control-label">Nama Siswa</label>
                                 <input type="text" class="form-control" required name="nama_siswa"
-                                    placeholder="contoh : X RPL A">
+                                    placeholder="contoh : Muhammad Abdan">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Kelas</label>
+                                <select name="id_grades" class="form-control">
+                                    <option value="">Pilih Kelas</option>
+                                    @foreach ($kelas as $item)
+                                    <option value="{{$item->id}}">{{$item->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -110,8 +121,8 @@ Siswa
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="field-1" class="control-label">Gambar Barang</label>
-                                <input type="file" id="input-file-now-custom-3" name="gambar"
+                                <label for="field-1" class="control-label">Foto Siswa</label>
+                                <input type="file" id="input-file-now-custom-3" name="foto"
                                     class="dropify" required />
                             </div>
                         </div>

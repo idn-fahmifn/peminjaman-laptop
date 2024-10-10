@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -21,5 +22,6 @@ Route::match(['get', 'post'], 'register', function () {
 // routing untuk kelas - menggunakan resource
 Route::resource('grades', GradeController::class);
 Route::resource('students', StudentController::class);
+Route::resource('borrow', BorrowController::class);
 
 
