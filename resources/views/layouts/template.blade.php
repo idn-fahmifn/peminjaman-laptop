@@ -34,6 +34,10 @@
     {{-- Modals --}}
     <link href="{{asset('assets/plugins/animate/animate.css')}}" rel="stylesheet" type="text/css">
 
+    <!-- dropzone -->
+    <link href="{{asset('assets/plugins/dropzone/dist/dropzone.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/plugins/dropify/css/dropify.min.css')}}" rel="stylesheet">
+
     <link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}"
         rel="stylesheet">
     <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
@@ -228,6 +232,11 @@
 
     {{-- modals --}}
     <script src="{{asset('assets/pages/modal-animation.init.js')}}"></script>
+
+    <!-- dropzone -->
+    <script src="{{asset('assets/plugins/dropzone/dist/dropzone.js')}}"></script>
+    <script src="{{asset('assets/plugins/dropify/js/dropify.min.js')}}"></script>
+    <script src="{{asset('assets/pages/upload.init.js')}}"></script>
 
 
     <script>
